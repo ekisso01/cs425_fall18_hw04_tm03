@@ -186,17 +186,134 @@ $(document).ready(function() {
   initializeMap();
 
   $( "#createbtn" ).click(function() {
-  alert( "Handler for .click() called." );
+  var request = $.ajax({
+  type: "POST",
+  url: "api/insert.php",
+  data: {
+  name:$( "#name" ).val(),
+  address:$( "#adr" ).val(),
+  x:$( "#x-cord" ).val(),
+  y:$( "#y-cord" ).val(),
+
+  operator:$( "#operator" ).val(),
+
+  com_date:$( "#com-Date" ).val(),
+
+  description:$( "#dcr" ).val(),
+
+  kWp:$( "#kWp" ).val(),
+
+  kWh:$( "#kWh" ).val(),
+
+  co2_avoided:$( "#co2" ).val(),
+
+  reimbursement:$( "#rmt" ).val(),
+
+  spm:$( "#spm" ).val(),
+
+  aa:$( "#aa" ).val(),
+
+  ia:$( "#ia" ).val(),
+
+  communication:$( "#comm" ).val(),
+
+  inverter:$( "#inverter" ).val(),
+
+  sensors:$( "#sensors" ).val(),
+
+      token: $("#token").val(),
+      username : $("#username").val()
+    }
+  });
+
+  request.done(function(msg) {
+  console.log(msg);
+  });
+  
 });
 
 $( "#changebtn" ).click(function() {
-  alert( "Handler for .click() called." );
+$("#createbtn").hide();
+   $("#savebtn").show();
+   $("#deletebtn").show();
+   $("#changebtn").hide();
+   $("#name").prop("readonly", false);
+  $("#adr").prop("readonly", false);
+  $("#operator").prop("readonly", false);
+  $("#com-Date").prop("readonly", false);
+  $("#dcr").prop("readonly", false);
+  $("#kWp").prop("readonly", false);
+  $("#kWh").prop("readonly", false);
+  $("#co2").prop("readonly", false);
+  $("#rmt").prop("readonly", false);
+  $("#spm").prop("readonly", false);
+  $("#aa").prop("readonly", false);
+  $("#ia").prop("readonly", false);
+  $("#comm").prop("readonly", false);
+  $("#inverter").prop("readonly", false);
+  $("#sensors").prop("readonly", false);
 });
 
 $( "#savebtn" ).click(function() {
-  alert( "Handler for .click() called." );
+  var request = $.ajax({
+  type: "POST",
+  url: "api/update.php",
+  data: {
+  id:$("#pvid").val(),
+  name:$( "#name" ).val(),
+  address:$( "#adr" ).val(),
+  x:$( "#x-cord" ).val(),
+  y:$( "#y-cord" ).val(),
+
+  operator:$( "#operator" ).val(),
+
+  com_date:$( "#com-Date" ).val(),
+
+  description:$( "#dcr" ).val(),
+
+  kWp:$( "#kWp" ).val(),
+
+  kWh:$( "#kWh" ).val(),
+
+  co2_avoided:$( "#co2" ).val(),
+
+  reimbursement:$( "#rmt" ).val(),
+
+  spm:$( "#spm" ).val(),
+
+  aa:$( "#aa" ).val(),
+
+  ia:$( "#ia" ).val(),
+
+  communication:$( "#comm" ).val(),
+
+  inverter:$( "#inverter" ).val(),
+
+  sensors:$( "#sensors" ).val(),
+
+      token: $("#token").val(),
+      username : $("#username").val()
+    }
+  });
+
+  request.done(function(msg) {
+  console.log(msg);
+  });
 });
 $( "#deletebtn" ).click(function() {
-  alert( "Handler for .click() called." );
+   var request = $.ajax({
+    type: "POST",
+    url: "api/delete.php",
+    data: {
+      id: $( "#pvid" ).val(),
+      token: $("#token").val(),
+      username : $("#username").val()
+    }
+  });
+
+  request.done(function(msg) {
+
+});
+  
 });
 });

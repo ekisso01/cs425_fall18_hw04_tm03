@@ -15,16 +15,12 @@
 	catch (PDOException $e){
 		echo 'There was a problem connecting to the database: ' . $e->getMessage();
 	}
-	echo "edoooooooo";
-
+	
 	$sql = "DELETE FROM pv_table WHERE id = ?";
 	$stmt= $connection->prepare($sql);
 
-	$id= "2";
+	$id= $_POST["id"];
 
 	$stmt->execute([$id]);
 	$arr = $stmt->errorInfo();
-
-	print_r($arr);
-	echo "edoooooooo";
 ?>
