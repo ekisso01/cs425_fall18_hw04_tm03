@@ -33,6 +33,10 @@ function getAllPoints() {
     type: "POST",
     url: "api/list.php",
     async: false,
+    data: {
+      token: $("#token").val(),
+      username : $("#username").val()
+    },
     success: function(result) {
       return true;
     }
@@ -114,7 +118,9 @@ function markerOnClick(e) {
     type: "POST",
     url: "api/get.php",
     data: {
-      id: myid
+      id: myid,
+      token: $("#token").val(),
+      username : $("#username").val()
     }
   });
 

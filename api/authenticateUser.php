@@ -1,4 +1,6 @@
 <?php
+	include("token.php");
+
 	function authenticateUser($username,$password){
 		$dsn = "mysql:dbname=phpmyadmin;host=34.216.143.96";
 		$dbuser = "phpmyadmin2";
@@ -17,10 +19,14 @@
 
 		$myArray=array();
 
+
+
 		while ($row = $stmt->fetch()):
-			return password_verify($password,$row["password_hash"]);
+			if(password_verify($password,$row["password_hash"])){
+				return generate_token($row['username']);
+			}
 	  endwhile;
-		return false;
+		return "";
 	}
 
 	function create_hash($password){

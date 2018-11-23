@@ -33,7 +33,10 @@
     $errorLogin = false;
     if($_SERVER['REQUEST_METHOD']=="POST"){
       include("api/authenticateUser.php");
-      $errorLogin = !authenticateUser($_POST["username"],$_POST["password"]);
+      $token = authenticateUser($_POST["username"],$_POST["password"]);
+      if($token==""){
+        $errorLogin = true;
+      }
     }
     if($_SERVER['REQUEST_METHOD']=="GET" or $errorLogin){
     ?>
@@ -63,6 +66,9 @@
 
       </form>
     <?php } else {?>
+      <input type="hidden" id="token" value="<?=$token?>"></input>
+      <input type="hidden" id="username" value="<?=$_POST["username"]?>"></input>
+
       <?php
         include("form.html");
       ?>

@@ -1,4 +1,11 @@
 <?php
+	include("token.php");
+	if(!isset($_POST["username"]) or !isset($_POST["token"])){
+		echo "You are not authorized to access this data";
+		die();
+	}
+	validatetoken($_POST["username"],$_POST["token"]);
+
 	$dsn = "mysql:dbname=phpmyadmin;host=34.216.143.96";
 	$dbuser = "phpmyadmin2";
 	$dbuserpw = "password";
@@ -12,7 +19,7 @@
 
 	$sql = "INSERT INTO pv_table(name,photo,address,x,y,operator,com_date,description,kWp,kWh,co2_avoided,reimbursement,spm,aa,ia,communication,inverter,sensors) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	$stmt= $connection->prepare($sql);
-	
+
 	$name = "2";
 	$photo = "2";
 	$address = "2";
