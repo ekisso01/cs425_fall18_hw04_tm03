@@ -30,15 +30,32 @@
 
   <body>
     <?php
+    session_start();
     $errorLogin = false;
+    $errorLogin2 = false;
+
     if($_SERVER['REQUEST_METHOD']=="POST"){
-      include("api/authenticateUser.php");
-      $token = authenticateUser($_POST["username"],$_POST["password"]);
-      if($token==""){
-        $errorLogin = true;
+      if(!isset($_SESSION["currentAtemp"])){
+        $_SESSION["currentAtemp"] = 1;
       }
+      else{
+          $_SESSION["currentAtemp"] =   $_SESSION["currentAtemp"] + 1;
+      }
+      if($_SESSION["currentAtemp"]<=3){
+        include("api/authenticateUser.php");
+        $token = authenticateUser($_POST["username"],$_POST["password"]);
+        if($token==""){
+          $errorLogin = true;
+        }else{
+          session_destroy();
+        }
+      }
+      else {
+        $errorLogin2 = true;
+      }
+
     }
-    if($_SERVER['REQUEST_METHOD']=="GET" or $errorLogin){
+    if($_SERVER['REQUEST_METHOD']=="GET" or $errorLogin or $errorLogin2){
     ?>
       <form class="vertical-center" method="post">
         <div class="form-group">
@@ -52,10 +69,20 @@
             <label for="password">Password:</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="password" maxlength="15" autofocus="">
         </div>
-        <?php if($errorLogin){
+        <?php if($errorLogin and  $_SESSION["currentAtemp"]!=3){
           ?>
           <div class="alert alert-danger">
             Wrong username or password
+            </br>
+            Attempts remaining : <?= 3 - $_SESSION["currentAtemp"]?>
+          </div>
+          <?php
+        }
+        ?>
+        <?php if($errorLogin2 or( isset($_SESSION["currentAtemp"]) and $_SESSION["currentAtemp"]==3)){
+          ?>
+          <div class="alert alert-danger">
+            You have reached the limit of attempts to login
           </div>
           <?php
         }

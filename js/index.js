@@ -27,7 +27,6 @@ function resetMarkers() {
     var marker = L.marker([points[i].x, points[i].y]);
     marker.addTo(map);
     marker.on('click', markerOnClick);
-    console.log(points[i]);
     marker.bindPopup("<div style=\"text-align:center\">"+points[i].name+"</div></br><img style=\"max-width:250;max-height:250\" src="+points[i].photo+">");
     marker.on('mouseover', function(e) {
       this.openPopup();
@@ -77,13 +76,16 @@ function onMapClick(e) {
 
   $("#operator").val("");
   $("#operator").prop("readonly", false);
-
-  $("#com-Date").val("");
+  var now = new Date();
+  var day = ("0" + now.getDate()).slice(-2);
+  var month = ("0" + (now.getMonth() + 1)).slice(-2);
+  var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+  $("#com-Date").val(today);
   $("#com-Date").prop("readonly", false);
 
   $("#dcr").val("");
   $("#dcr").prop("readonly", false);
-  
+
   $("#photo").val("");
   $("#photo").prop("readonly", false);
 
@@ -141,7 +143,6 @@ function markerOnClick(e) {
 
   request.done(function(msg) {
     var json = JSON.parse(msg)[0];
-    console.log(json);
 
     $("#name").val(json.name);
     $("#name").prop("readonly", true);
@@ -161,9 +162,9 @@ function markerOnClick(e) {
 
     $("#dcr").val(json.description);
     $("#dcr").prop("readonly", true);
-    
+
     $("#photo").val(json.photo);
-    $("#photo").prop("readonly", false);
+    $("#photo").prop("readonly", true);
 
     $("#kWp").val(json.kWp);
     $("#kWp").prop("readonly", true);
@@ -218,7 +219,7 @@ $(document).ready(function() {
         com_date: $("#com-Date").val(),
 
         description: $("#dcr").val(),
-        
+
         photo: $("#photo").val(),
 
         kWp: $("#kWp").val(),
@@ -292,7 +293,7 @@ $(document).ready(function() {
         com_date: $("#com-Date").val(),
 
         description: $("#dcr").val(),
-        
+
         photo: $("#photo").val(),
 
         kWp: $("#kWp").val(),
