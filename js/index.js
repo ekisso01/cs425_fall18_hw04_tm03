@@ -22,7 +22,7 @@ function initializeMap() {
     marker.on('mouseout', function(e) {
       this.closePopup();
     });
-    marker._icon.id = points[i].id;
+    marker.myCustomID= points[i].id;
   }
 
 }
@@ -45,18 +45,23 @@ function getAllPoints() {
 function onMapClick(e) {
 
   $('#myModal').modal('show');
-
-
-  console.log("randomSpot");
-  console.log(e);
 }
 
 function markerOnClick(e) {
-  console.log("marker");
-  var el = $(e.srcElement || e.target);
-  var id = el.attr('id');
-  console.log(e);
-  console.log(id);
+  var myid = e.target.myCustomID;
+  var request = $.ajax({
+    type: "POST",
+    url: "api/get.php",
+    data: {id : myid}
+  });
+
+  request.done(function( msg ) {
+    var json = JSON.parse(msg)[0];
+    console.log(json);
+    $( "#name" ).val( json.name );
+    $('#myModal').modal('show');
+  });
+
 }
 
 $(document).ready(function() {
