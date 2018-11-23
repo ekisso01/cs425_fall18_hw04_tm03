@@ -16,7 +16,7 @@
 					<div class="form-group">
     						<h5 class="heads">General</h5>
 					</div>
-
+					<input type="hidden" id="pvid" name="pvid">
   					<div class="form-group">
     						<label for="name">Name:</label>
 						<input type="text" class="form-control" id="name" placeholder="The name of the new PV.." maxlength="15" autofocus>
@@ -27,7 +27,7 @@
 						<input type="text" class="form-control" id="adr" placeholder="The address of the new PV..">
   					</div>
 
-					<input type="hidden" id="X-cord" name="x-cord">
+					<input type="hidden" id="x-cord" name="x-cord">
 					<input type="hidden" id="y-cord" name="y-cord">
 
 					<div class="form-group">
@@ -118,8 +118,11 @@
 
       			</div>
       			<div class="modal-footer">
-				<button type="button" class="btn btn-default">Create</button>
-        			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-default" id="changebtn">Change</button>
+				<button type="button" class="btn btn-default" id="savebtn">Save</button>
+				<button type="button" class="btn btn-default" id="createbtn">Create</button>
+				<button type="button" class="btn btn-default" id="deletebtn">Delete</button>
+        			<button type="button" class="btn btn-default" data-dismiss="modal" id="cancelbtn">Cancel</button>
       			</div>
    		</div>
 
