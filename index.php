@@ -30,10 +30,37 @@
 
   <body>
     <?php
-    if($_SERVER['REQUEST_METHOD']=="GET"){
+    $errorLogin = false;
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+      include("api/authenticateUser.php");
+      $errorLogin = !authenticateUser($_POST["username"],$_POST["password"]);
+    }
+    if($_SERVER['REQUEST_METHOD']=="GET" or $errorLogin){
     ?>
       <form class="vertical-center" method="post">
-      <button class="btn btn-primary">Enter Site</button>
+        <div class="form-group">
+              <h5 class="heads">Login</h5>
+        </div>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name = "username" placeholder="username" maxlength="15" autofocus="">
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="text" class="form-control" id="password" name="password" placeholder="password" maxlength="15" autofocus="">
+        </div>
+        <?php if($errorLogin){
+          ?>
+          <div class="alert alert-danger">
+            Wrong username or password
+          </div>
+          <?php
+        }
+        ?>
+        <div class="form-group">
+          <button class="btn btn-primary col-12">Enter Site</button>
+        </div>
+
       </form>
     <?php } else {?>
       <?php

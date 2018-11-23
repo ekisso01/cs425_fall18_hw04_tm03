@@ -22,23 +22,22 @@ function initializeMap() {
     marker.on('mouseout', function(e) {
       this.closePopup();
     });
-    marker.myCustomID= points[i].id;
+    marker.myCustomID = points[i].id;
   }
 
 }
 
 function getAllPoints() {
-  var points = [{
-    name: "to babe :)",
-    x: 35.15546,
-    y: 33.305926,
-    id: 1
-  }, {
-    name: "condiom",
-    x: 35.17051727551269,
-    y: 33.382999087501524,
-    id: 2
-  }];
+
+  var response = $.ajax({
+    type: "POST",
+    url: "api/list.php",
+    async: false,
+    success: function(result) {
+      return true;
+    }
+  }).responseText;
+  var points = JSON.parse(response);
   return points;
 }
 
@@ -52,13 +51,15 @@ function markerOnClick(e) {
   var request = $.ajax({
     type: "POST",
     url: "api/get.php",
-    data: {id : myid}
+    data: {
+      id: myid
+    }
   });
 
-  request.done(function( msg ) {
+  request.done(function(msg) {
     var json = JSON.parse(msg)[0];
     console.log(json);
-    $( "#name" ).val( json.name );
+    $("#name").val(json.name);
     $('#myModal').modal('show');
   });
 
