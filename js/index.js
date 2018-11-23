@@ -27,7 +27,8 @@ function resetMarkers() {
     var marker = L.marker([points[i].x, points[i].y]);
     marker.addTo(map);
     marker.on('click', markerOnClick);
-    marker.bindPopup(points[i].name);
+    console.log(points[i]);
+    marker.bindPopup("<div style=\"text-align:center\">"+points[i].name+"</div></br><img style=\"max-width:250;max-height:250\" src="+points[i].photo+">");
     marker.on('mouseover', function(e) {
       this.openPopup();
     });
