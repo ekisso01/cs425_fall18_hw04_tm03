@@ -82,6 +82,9 @@ function onMapClick(e) {
 
   $("#dcr").val("");
   $("#dcr").prop("readonly", false);
+  
+  $("#photo").val("");
+  $("#photo").prop("readonly", false);
 
   $("#kWp").val("");
   $("#kWp").prop("readonly", false);
@@ -157,6 +160,9 @@ function markerOnClick(e) {
 
     $("#dcr").val(json.description);
     $("#dcr").prop("readonly", true);
+    
+    $("#photo").val(json.photo);
+    $("#photo").prop("readonly", false);
 
     $("#kWp").val(json.kWp);
     $("#kWp").prop("readonly", true);
@@ -211,6 +217,8 @@ $(document).ready(function() {
         com_date: $("#com-Date").val(),
 
         description: $("#dcr").val(),
+        
+        photo: $("#photo").val(),
 
         kWp: $("#kWp").val(),
 
@@ -254,6 +262,7 @@ $(document).ready(function() {
     $("#operator").prop("readonly", false);
     $("#com-Date").prop("readonly", false);
     $("#dcr").prop("readonly", false);
+    $("#photo").prop("readonly", false);
     $("#kWp").prop("readonly", false);
     $("#kWh").prop("readonly", false);
     $("#co2").prop("readonly", false);
@@ -282,6 +291,8 @@ $(document).ready(function() {
         com_date: $("#com-Date").val(),
 
         description: $("#dcr").val(),
+        
+        photo: $("#photo").val(),
 
         kWp: $("#kWp").val(),
 
