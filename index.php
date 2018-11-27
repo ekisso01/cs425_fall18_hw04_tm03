@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="shortcut icon" href="favicon/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/sweetalert2.all.min.js"></script>
+    <!-- Optional: include a polyfill for ES6 Promises for IE11 and Android browser -->
 
     </head>
 

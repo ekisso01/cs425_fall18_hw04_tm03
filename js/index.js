@@ -229,17 +229,17 @@ function markerOnClick(e) {
 $(document).ready(function() {
   initializeMap();
 
-  $( "#form" ).submit(function( event ) {
+  $("#form").submit(function(event) {
     event.preventDefault();
   });
   $("#createbtn").click(function() {
     if (checkRequired()) {
       return;
     }
-    if ($("#aa").val() === ""){
+    if ($("#aa").val() === "") {
       $("#aa").val("0");
     }
-    if ($("#ia").val() === ""){
+    if ($("#ia").val() === "") {
       $("#ia").val("0");
     }
 
@@ -288,6 +288,11 @@ $(document).ready(function() {
     request.done(function(msg) {
       resetMarkers();
       $('#myModal').modal('hide');
+      swal(
+        'Success!',
+        'You created a PV!',
+        'success'
+      )
     });
 
   });
@@ -319,10 +324,10 @@ $(document).ready(function() {
     if (checkRequired()) {
       return;
     }
-    if ($("#aa").val() === ""){
+    if ($("#aa").val() === "") {
       $("#aa").val("0");
     }
-    if ($("#ia").val() === ""){
+    if ($("#ia").val() === "") {
       $("#ia").val("0");
     }
     var request = $.ajax({
@@ -371,26 +376,48 @@ $(document).ready(function() {
     request.done(function(msg) {
       resetMarkers();
       $('#myModal').modal('hide');
-
+      swal(
+        'Success!',
+        'You edited a PV!',
+        'success'
+      )
     });
   });
 
   $("#deletebtn").click(function() {
-    var request = $.ajax({
-      type: "POST",
-      url: "api/delete.php",
-      data: {
-        id: $("#pvid").val(),
-        token: $("#token").val(),
-        username: $("#username").val()
+    swal({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        var request = $.ajax({
+          type: "POST",
+          url: "api/delete.php",
+          data: {
+            id: $("#pvid").val(),
+            token: $("#token").val(),
+            username: $("#username").val()
+          }
+        });
+
+        request.done(function(msg) {
+          resetMarkers();
+          $('#myModal').modal('hide');
+          swal(
+            'Deleted!',
+            'Your PV has been deleted.',
+            'success'
+          )
+        });
+
       }
-    });
+    })
 
-    request.done(function(msg) {
-      resetMarkers();
-      $('#myModal').modal('hide');
-
-    });
 
   });
 });

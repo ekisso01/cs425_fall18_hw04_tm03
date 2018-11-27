@@ -38,6 +38,5 @@
 	$sensors = $_POST["sensors"];
 	$stmt->execute([$name,$photo,$address,$x,$y,$operator,$com_date,$description,$kWp,$kWh,$co2_avoided,$reimbursement,$spm,$aa,$ia,$communication,$inverter,$sensors]);
 	$arr = $stmt->errorInfo();
-	print_r($arr);
 
 ?>
