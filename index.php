@@ -63,11 +63,11 @@
         </div>
         <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" class="form-control" id="username" name = "username" placeholder="username" maxlength="15" autofocus="">
+            <input type="text" class="form-control" id="username" name = "username" placeholder="username" maxlength="15" autofocus="" value="cdiomi01">
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="password" maxlength="15" autofocus="">
+            <input type="password" class="form-control" id="password" name="password" placeholder="password" maxlength="15" autofocus="" value="cdiomi01">
         </div>
         <?php if($errorLogin and  $_SESSION["currentAtemp"]!=3){
           ?>

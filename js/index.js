@@ -1,5 +1,5 @@
 var map;
-var markers=[];
+var markers = [];
 
 function initializeMap(first) {
 
@@ -27,7 +27,7 @@ function resetMarkers() {
     var marker = L.marker([points[i].x, points[i].y]);
     marker.addTo(map);
     marker.on('click', markerOnClick);
-    marker.bindPopup("<div style=\"text-align:center\">"+points[i].name+"</div></br><img style=\"max-width:250;max-height:250\" src="+points[i].photo+">");
+    marker.bindPopup("<div style=\"text-align:center\">" + points[i].name + "</div></br><img style=\"max-width:250;max-height:250\" src=" + points[i].photo + ">");
     marker.on('mouseover', function(e) {
       this.openPopup();
     });
@@ -76,11 +76,7 @@ function onMapClick(e) {
 
   $("#operator").val("");
   $("#operator").prop("readonly", false);
-  var now = new Date();
-  var day = ("0" + now.getDate()).slice(-2);
-  var month = ("0" + (now.getMonth() + 1)).slice(-2);
-  var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-  $("#com-Date").val(today);
+
   $("#com-Date").prop("readonly", false);
 
   $("#dcr").val("");
@@ -123,6 +119,35 @@ function onMapClick(e) {
 
 
   $('#myModal').modal('show');
+}
+
+function checkRequired() {
+
+  var name = $("#name").val();
+  var address = $("#adr").val();
+  var operator = $("#operator").val();
+
+  var com_date = $("#com-Date").val();
+
+  var description = $("#dcr").val();
+
+  var photo = $("#photo").val();
+
+  var kWp = $("#kWp").val();
+
+  var kWh = $("#kWh").val();
+
+  var co2_avoided = $("#co2").val();
+
+  var reimbursement = $("#rmt").val();
+
+  if (name === "" || address === "" || operator === "" || com_date === "" || description === "" || photo === "" || kWp === "" || kWh === "" || co2_avoided === "" || reimbursement === "") {
+    return true;
+  }
+  return false;
+
+
+
 }
 
 function markerOnClick(e) {
@@ -204,7 +229,20 @@ function markerOnClick(e) {
 $(document).ready(function() {
   initializeMap();
 
+  $( "#form" ).submit(function( event ) {
+    event.preventDefault();
+  });
   $("#createbtn").click(function() {
+    if (checkRequired()) {
+      return;
+    }
+    if ($("#aa").val() === ""){
+      $("#aa").val("0");
+    }
+    if ($("#ia").val() === ""){
+      $("#ia").val("0");
+    }
+
     var request = $.ajax({
       type: "POST",
       url: "api/insert.php",
@@ -278,6 +316,15 @@ $(document).ready(function() {
   });
 
   $("#savebtn").click(function() {
+    if (checkRequired()) {
+      return;
+    }
+    if ($("#aa").val() === ""){
+      $("#aa").val("0");
+    }
+    if ($("#ia").val() === ""){
+      $("#ia").val("0");
+    }
     var request = $.ajax({
       type: "POST",
       url: "api/update.php",
@@ -322,8 +369,8 @@ $(document).ready(function() {
     });
 
     request.done(function(msg) {
-       resetMarkers();
-       $('#myModal').modal('hide');
+      resetMarkers();
+      $('#myModal').modal('hide');
 
     });
   });
